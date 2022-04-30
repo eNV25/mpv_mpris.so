@@ -1,0 +1,25 @@
+GENERATOR:
+  PackageName: internal
+  Includes:
+    - mpv.h
+PARSER:
+  IncludePaths:
+    - /usr/include
+  SourcesPaths:
+    - mpv/client.h
+TRANSLATOR:
+  Rules:
+    global:
+      - { action: ignore, from: "^mpv_set_wakeup_callback$" }
+      - { action: accept, from: "^mpv_" }
+      - { action: accept, from: "^MPV_" }
+      - { action: replace, from: "^mpv_", to: "" }
+      - { action: replace, from: "^MPV_", to: "_" }
+  PtrTips:
+    function:
+      - { target: "^mpv_command_node$", tips: [ref, arr, ref] }
+      - { target: "^mpv_command_ret$", tips: [ref, arr, ref] }
+      - { target: "^mpv_event_to_node$", tips: [ref, ref] }
+      - { target: "^mpv_", tips: [ref] }
+  MemTips:
+    - { target: "^mpv_", self: raw }
