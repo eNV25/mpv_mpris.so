@@ -1,7 +1,7 @@
 #!/bin/bash -ev
 pkg=internal
 mkdir -p tmp/
-c-for-go -nostamp -out tmp/ generate.yml
+c-for-go  -ccdefs -ccincl -nostamp -out tmp/ generate.yml
 sed '
 	/New([^ ]*)Ref\(/s//\1_ref(/g
 	/New([^ ]*)\(/s//\1_new(/g

@@ -5,10 +5,6 @@ GENERATOR:
 PARSER:
   IncludePaths:
     - /usr/include
-    # HACK: needed for stddef.h
-    - /usr/lib/musl/include
-    - /usr/lib/zig/libc/musl/include
-    - /usr/lib/tinygo/lib/musl/include
   SourcesPaths:
     - mpv/client.h
 TRANSLATOR:
@@ -20,9 +16,9 @@ TRANSLATOR:
       - { action: replace, from: "^MPV_", to: "_MPV_" }
   PtrTips:
     function:
-      - { target: "^mpv_command_node$", tips: [ref,arr,ref] }
-      - { target: "^mpv_command_ret$", tips: [ref,arr,ref] }
-      - { target: "^mpv_event_to_node$", tips: [ref,ref] }
+      - { target: "^mpv_command_node$", tips: [ref, arr, ref] }
+      - { target: "^mpv_command_ret$", tips: [ref, arr, ref] }
+      - { target: "^mpv_event_to_node$", tips: [ref, ref] }
       - { target: "^mpv_", tips: [ref] }
   MemTips:
     - { target: "^mpv_", self: raw }
