@@ -4,47 +4,47 @@
 package internal
 
 /*
-#include "client.h"
+#include "mpv.h"
 #include <stdlib.h>
 #include "cgo_helpers.h"
 */
 import "C"
 
-// mpv_handle as declared in mpv/client.h:259
-type mpv_handle = C.mpv_handle
+// handle as declared in mpv/client.h:259
+type handle = C.mpv_handle
 
-// mpv_node as declared in mpv/client.h:837
-type mpv_node = C.mpv_node
+// node as declared in mpv/client.h:837
+type node = C.mpv_node
 
-// mpv_node_list as declared in mpv/client.h:869
-type mpv_node_list = C.mpv_node_list
+// node_list as declared in mpv/client.h:869
+type node_list = C.mpv_node_list
 
-// mpv_byte_array as declared in mpv/client.h:884
-type mpv_byte_array = C.mpv_byte_array
+// byte_array as declared in mpv/client.h:884
+type byte_array = C.mpv_byte_array
 
-// mpv_event_property as declared in mpv/client.h:1538
-type mpv_event_property = C.mpv_event_property
+// event_property as declared in mpv/client.h:1538
+type event_property = C.mpv_event_property
 
-// mpv_event_log_message as declared in mpv/client.h:1582
-type mpv_event_log_message = C.mpv_event_log_message
+// event_log_message as declared in mpv/client.h:1582
+type event_log_message = C.mpv_event_log_message
 
-// mpv_event_start_file as declared in mpv/client.h:1626
-type mpv_event_start_file = C.mpv_event_start_file
+// event_start_file as declared in mpv/client.h:1626
+type event_start_file = C.mpv_event_start_file
 
-// mpv_event_end_file as declared in mpv/client.h:1671
-type mpv_event_end_file = C.mpv_event_end_file
+// event_end_file as declared in mpv/client.h:1671
+type event_end_file = C.mpv_event_end_file
 
-// mpv_event_script_input_dispatch as declared in mpv/client.h:1679
-type mpv_event_script_input_dispatch = C.mpv_event_script_input_dispatch
+// event_script_input_dispatch as declared in mpv/client.h:1679
+type event_script_input_dispatch = C.mpv_event_script_input_dispatch
 
-// mpv_event_client_message as declared in mpv/client.h:1691
-type mpv_event_client_message = C.mpv_event_client_message
+// event_client_message as declared in mpv/client.h:1691
+type event_client_message = C.mpv_event_client_message
 
-// mpv_event_hook as declared in mpv/client.h:1702
-type mpv_event_hook = C.mpv_event_hook
+// event_hook as declared in mpv/client.h:1702
+type event_hook = C.mpv_event_hook
 
-// mpv_event_command as declared in mpv/client.h:1713
-type mpv_event_command = C.mpv_event_command
+// event_command as declared in mpv/client.h:1713
+type event_command = C.mpv_event_command
 
-// mpv_event as declared in mpv/client.h:1760
-type mpv_event = C.mpv_event
+// event as declared in mpv/client.h:1760
+type event = C.mpv_event

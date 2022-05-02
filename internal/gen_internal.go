@@ -4,7 +4,7 @@
 package internal
 
 /*
-#include "client.h"
+#include "mpv.h"
 #include <stdlib.h>
 #include "cgo_helpers.h"
 */
@@ -14,15 +14,15 @@ import (
 	"unsafe"
 )
 
-// mpv_client_api_version function as declared in mpv/client.h:253
-func mpv_client_api_version() uint32 {
+// client_api_version function as declared in mpv/client.h:253
+func client_api_version() uint32 {
 	__ret := C.mpv_client_api_version()
 	__v := (uint32)(__ret)
 	return __v
 }
 
-// mpv_error_string function as declared in mpv/client.h:377
-func mpv_error_string(error int32) string {
+// error_string function as declared in mpv/client.h:377
+func error_string(error int32) string {
 	cerror, cerrorAllocMap := (C.int)(error), cgoAllocsUnknown
 	__ret := C.mpv_error_string(cerror)
 	runtime.KeepAlive(cerrorAllocMap)
@@ -30,15 +30,15 @@ func mpv_error_string(error int32) string {
 	return __v
 }
 
-// mpv_free function as declared in mpv/client.h:386
-func mpv_free(data unsafe.Pointer) {
+// free function as declared in mpv/client.h:386
+func free(data unsafe.Pointer) {
 	cdata, cdataAllocMap := data, cgoAllocsUnknown
 	C.mpv_free(cdata)
 	runtime.KeepAlive(cdataAllocMap)
 }
 
-// mpv_client_name function as declared in mpv/client.h:395
-func mpv_client_name(ctx *mpv_handle) string {
+// client_name function as declared in mpv/client.h:395
+func client_name(ctx *handle) string {
 	cctx, cctxAllocMap := (*C.mpv_handle)(unsafe.Pointer(ctx)), cgoAllocsUnknown
 	__ret := C.mpv_client_name(cctx)
 	runtime.KeepAlive(cctxAllocMap)
@@ -46,8 +46,8 @@ func mpv_client_name(ctx *mpv_handle) string {
 	return __v
 }
 
-// mpv_client_id function as declared in mpv/client.h:412
-func mpv_client_id(ctx *mpv_handle) int32 {
+// client_id function as declared in mpv/client.h:412
+func client_id(ctx *handle) int32 {
 	cctx, cctxAllocMap := (*C.mpv_handle)(unsafe.Pointer(ctx)), cgoAllocsUnknown
 	__ret := C.mpv_client_id(cctx)
 	runtime.KeepAlive(cctxAllocMap)
@@ -55,15 +55,15 @@ func mpv_client_id(ctx *mpv_handle) int32 {
 	return __v
 }
 
-// mpv_create function as declared in mpv/client.h:468
-func mpv_create() *mpv_handle {
+// create function as declared in mpv/client.h:468
+func create() *handle {
 	__ret := C.mpv_create()
-	__v := *(**mpv_handle)(unsafe.Pointer(&__ret))
+	__v := *(**handle)(unsafe.Pointer(&__ret))
 	return __v
 }
 
-// mpv_initialize function as declared in mpv/client.h:490
-func mpv_initialize(ctx *mpv_handle) int32 {
+// initialize function as declared in mpv/client.h:490
+func initialize(ctx *handle) int32 {
 	cctx, cctxAllocMap := (*C.mpv_handle)(unsafe.Pointer(ctx)), cgoAllocsUnknown
 	__ret := C.mpv_initialize(cctx)
 	runtime.KeepAlive(cctxAllocMap)
@@ -71,51 +71,51 @@ func mpv_initialize(ctx *mpv_handle) int32 {
 	return __v
 }
 
-// mpv_destroy function as declared in mpv/client.h:502
-func mpv_destroy(ctx *mpv_handle) {
+// destroy function as declared in mpv/client.h:502
+func destroy(ctx *handle) {
 	cctx, cctxAllocMap := (*C.mpv_handle)(unsafe.Pointer(ctx)), cgoAllocsUnknown
 	C.mpv_destroy(cctx)
 	runtime.KeepAlive(cctxAllocMap)
 }
 
-// mpv_detach_destroy function as declared in mpv/client.h:521
-func mpv_detach_destroy(ctx *mpv_handle) {
+// detach_destroy function as declared in mpv/client.h:521
+func detach_destroy(ctx *handle) {
 	cctx, cctxAllocMap := (*C.mpv_handle)(unsafe.Pointer(ctx)), cgoAllocsUnknown
 	C.mpv_detach_destroy(cctx)
 	runtime.KeepAlive(cctxAllocMap)
 }
 
-// mpv_terminate_destroy function as declared in mpv/client.h:549
-func mpv_terminate_destroy(ctx *mpv_handle) {
+// terminate_destroy function as declared in mpv/client.h:549
+func terminate_destroy(ctx *handle) {
 	cctx, cctxAllocMap := (*C.mpv_handle)(unsafe.Pointer(ctx)), cgoAllocsUnknown
 	C.mpv_terminate_destroy(cctx)
 	runtime.KeepAlive(cctxAllocMap)
 }
 
-// mpv_create_client function as declared in mpv/client.h:575
-func mpv_create_client(ctx *mpv_handle, name string) *mpv_handle {
+// create_client function as declared in mpv/client.h:575
+func create_client(ctx *handle, name string) *handle {
 	cctx, cctxAllocMap := (*C.mpv_handle)(unsafe.Pointer(ctx)), cgoAllocsUnknown
 	cname, cnameAllocMap := unpackPCharString(name)
 	__ret := C.mpv_create_client(cctx, cname)
 	runtime.KeepAlive(cnameAllocMap)
 	runtime.KeepAlive(cctxAllocMap)
-	__v := *(**mpv_handle)(unsafe.Pointer(&__ret))
+	__v := *(**handle)(unsafe.Pointer(&__ret))
 	return __v
 }
 
-// mpv_create_weak_client function as declared in mpv/client.h:589
-func mpv_create_weak_client(ctx *mpv_handle, name string) *mpv_handle {
+// create_weak_client function as declared in mpv/client.h:589
+func create_weak_client(ctx *handle, name string) *handle {
 	cctx, cctxAllocMap := (*C.mpv_handle)(unsafe.Pointer(ctx)), cgoAllocsUnknown
 	cname, cnameAllocMap := unpackPCharString(name)
 	__ret := C.mpv_create_weak_client(cctx, cname)
 	runtime.KeepAlive(cnameAllocMap)
 	runtime.KeepAlive(cctxAllocMap)
-	__v := *(**mpv_handle)(unsafe.Pointer(&__ret))
+	__v := *(**handle)(unsafe.Pointer(&__ret))
 	return __v
 }
 
-// mpv_load_config_file function as declared in mpv/client.h:609
-func mpv_load_config_file(ctx *mpv_handle, filename string) int32 {
+// load_config_file function as declared in mpv/client.h:609
+func load_config_file(ctx *handle, filename string) int32 {
 	cctx, cctxAllocMap := (*C.mpv_handle)(unsafe.Pointer(ctx)), cgoAllocsUnknown
 	cfilename, cfilenameAllocMap := unpackPCharString(filename)
 	__ret := C.mpv_load_config_file(cctx, cfilename)
@@ -125,22 +125,22 @@ func mpv_load_config_file(ctx *mpv_handle, filename string) int32 {
 	return __v
 }
 
-// mpv_suspend function as declared in mpv/client.h:639
-func mpv_suspend(ctx *mpv_handle) {
+// suspend function as declared in mpv/client.h:639
+func suspend(ctx *handle) {
 	cctx, cctxAllocMap := (*C.mpv_handle)(unsafe.Pointer(ctx)), cgoAllocsUnknown
 	C.mpv_suspend(cctx)
 	runtime.KeepAlive(cctxAllocMap)
 }
 
-// mpv_resume function as declared in mpv/client.h:644
-func mpv_resume(ctx *mpv_handle) {
+// resume function as declared in mpv/client.h:644
+func resume(ctx *handle) {
 	cctx, cctxAllocMap := (*C.mpv_handle)(unsafe.Pointer(ctx)), cgoAllocsUnknown
 	C.mpv_resume(cctx)
 	runtime.KeepAlive(cctxAllocMap)
 }
 
-// mpv_get_time_us function as declared in mpv/client.h:662
-func mpv_get_time_us(ctx *mpv_handle) int32 {
+// get_time_us function as declared in mpv/client.h:662
+func get_time_us(ctx *handle) int32 {
 	cctx, cctxAllocMap := (*C.mpv_handle)(unsafe.Pointer(ctx)), cgoAllocsUnknown
 	__ret := C.mpv_get_time_us(cctx)
 	runtime.KeepAlive(cctxAllocMap)
@@ -148,15 +148,15 @@ func mpv_get_time_us(ctx *mpv_handle) int32 {
 	return __v
 }
 
-// mpv_free_node_contents function as declared in mpv/client.h:896
-func mpv_free_node_contents(node *mpv_node) {
+// free_node_contents function as declared in mpv/client.h:896
+func free_node_contents(node *node) {
 	cnode, cnodeAllocMap := (*C.mpv_node)(unsafe.Pointer(node)), cgoAllocsUnknown
 	C.mpv_free_node_contents(cnode)
 	runtime.KeepAlive(cnodeAllocMap)
 }
 
-// mpv_set_option function as declared in mpv/client.h:939
-func mpv_set_option(ctx *mpv_handle, name string, format mpv_format, data unsafe.Pointer) int32 {
+// set_option function as declared in mpv/client.h:939
+func set_option(ctx *handle, name string, format format, data unsafe.Pointer) int32 {
 	cctx, cctxAllocMap := (*C.mpv_handle)(unsafe.Pointer(ctx)), cgoAllocsUnknown
 	cname, cnameAllocMap := unpackPCharString(name)
 	cformat, cformatAllocMap := (C.mpv_format)(format), cgoAllocsUnknown
@@ -170,8 +170,8 @@ func mpv_set_option(ctx *mpv_handle, name string, format mpv_format, data unsafe
 	return __v
 }
 
-// mpv_set_option_string function as declared in mpv/client.h:948
-func mpv_set_option_string(ctx *mpv_handle, name string, data string) int32 {
+// set_option_string function as declared in mpv/client.h:948
+func set_option_string(ctx *handle, name string, data string) int32 {
 	cctx, cctxAllocMap := (*C.mpv_handle)(unsafe.Pointer(ctx)), cgoAllocsUnknown
 	cname, cnameAllocMap := unpackPCharString(name)
 	cdata, cdataAllocMap := unpackPCharString(data)
@@ -183,8 +183,8 @@ func mpv_set_option_string(ctx *mpv_handle, name string, data string) int32 {
 	return __v
 }
 
-// mpv_command function as declared in mpv/client.h:964
-func mpv_command(ctx *mpv_handle, args []string) int32 {
+// command function as declared in mpv/client.h:964
+func command(ctx *handle, args []string) int32 {
 	cctx, cctxAllocMap := (*C.mpv_handle)(unsafe.Pointer(ctx)), cgoAllocsUnknown
 	cargs, cargsAllocMap := unpackArgSString(args)
 	__ret := C.mpv_command(cctx, cargs)
@@ -195,10 +195,10 @@ func mpv_command(ctx *mpv_handle, args []string) int32 {
 	return __v
 }
 
-// mpv_command_node function as declared in mpv/client.h:1000
-func mpv_command_node(ctx *mpv_handle, args []mpv_node, result *mpv_node) int32 {
+// command_node function as declared in mpv/client.h:1000
+func command_node(ctx *handle, args []node, result *node) int32 {
 	cctx, cctxAllocMap := (*C.mpv_handle)(unsafe.Pointer(ctx)), cgoAllocsUnknown
-	cargs, cargsAllocMap := copyPMpv_nodeBytes((*sliceHeader)(unsafe.Pointer(&args)))
+	cargs, cargsAllocMap := copyPNodeBytes((*sliceHeader)(unsafe.Pointer(&args)))
 	cresult, cresultAllocMap := (*C.mpv_node)(unsafe.Pointer(result)), cgoAllocsUnknown
 	__ret := C.mpv_command_node(cctx, cargs, cresult)
 	runtime.KeepAlive(cresultAllocMap)
@@ -208,8 +208,8 @@ func mpv_command_node(ctx *mpv_handle, args []mpv_node, result *mpv_node) int32 
 	return __v
 }
 
-// mpv_command_ret function as declared in mpv/client.h:1016
-func mpv_command_ret(ctx *mpv_handle, args []string, result *mpv_node) int32 {
+// command_ret function as declared in mpv/client.h:1016
+func command_ret(ctx *handle, args []string, result *node) int32 {
 	cctx, cctxAllocMap := (*C.mpv_handle)(unsafe.Pointer(ctx)), cgoAllocsUnknown
 	cargs, cargsAllocMap := unpackArgSString(args)
 	cresult, cresultAllocMap := (*C.mpv_node)(unsafe.Pointer(result)), cgoAllocsUnknown
@@ -222,8 +222,8 @@ func mpv_command_ret(ctx *mpv_handle, args []string, result *mpv_node) int32 {
 	return __v
 }
 
-// mpv_command_string function as declared in mpv/client.h:1025
-func mpv_command_string(ctx *mpv_handle, args string) int32 {
+// command_string function as declared in mpv/client.h:1025
+func command_string(ctx *handle, args string) int32 {
 	cctx, cctxAllocMap := (*C.mpv_handle)(unsafe.Pointer(ctx)), cgoAllocsUnknown
 	cargs, cargsAllocMap := unpackPCharString(args)
 	__ret := C.mpv_command_string(cctx, cargs)
@@ -233,8 +233,8 @@ func mpv_command_string(ctx *mpv_handle, args string) int32 {
 	return __v
 }
 
-// mpv_command_async function as declared in mpv/client.h:1047
-func mpv_command_async(ctx *mpv_handle, reply_userdata uint32, args []string) int32 {
+// command_async function as declared in mpv/client.h:1047
+func command_async(ctx *handle, reply_userdata uint32, args []string) int32 {
 	cctx, cctxAllocMap := (*C.mpv_handle)(unsafe.Pointer(ctx)), cgoAllocsUnknown
 	creply_userdata, creply_userdataAllocMap := (C.uint64_t)(reply_userdata), cgoAllocsUnknown
 	cargs, cargsAllocMap := unpackArgSString(args)
@@ -247,11 +247,11 @@ func mpv_command_async(ctx *mpv_handle, reply_userdata uint32, args []string) in
 	return __v
 }
 
-// mpv_command_node_async function as declared in mpv/client.h:1064
-func mpv_command_node_async(ctx *mpv_handle, reply_userdata uint32, args []mpv_node) int32 {
+// command_node_async function as declared in mpv/client.h:1064
+func command_node_async(ctx *handle, reply_userdata uint32, args []node) int32 {
 	cctx, cctxAllocMap := (*C.mpv_handle)(unsafe.Pointer(ctx)), cgoAllocsUnknown
 	creply_userdata, creply_userdataAllocMap := (C.uint64_t)(reply_userdata), cgoAllocsUnknown
-	cargs, cargsAllocMap := copyPMpv_nodeBytes((*sliceHeader)(unsafe.Pointer(&args)))
+	cargs, cargsAllocMap := copyPNodeBytes((*sliceHeader)(unsafe.Pointer(&args)))
 	__ret := C.mpv_command_node_async(cctx, creply_userdata, cargs)
 	runtime.KeepAlive(cargsAllocMap)
 	runtime.KeepAlive(creply_userdataAllocMap)
@@ -260,8 +260,8 @@ func mpv_command_node_async(ctx *mpv_handle, reply_userdata uint32, args []mpv_n
 	return __v
 }
 
-// mpv_abort_async_command function as declared in mpv/client.h:1097
-func mpv_abort_async_command(ctx *mpv_handle, reply_userdata uint32) {
+// abort_async_command function as declared in mpv/client.h:1097
+func abort_async_command(ctx *handle, reply_userdata uint32) {
 	cctx, cctxAllocMap := (*C.mpv_handle)(unsafe.Pointer(ctx)), cgoAllocsUnknown
 	creply_userdata, creply_userdataAllocMap := (C.uint64_t)(reply_userdata), cgoAllocsUnknown
 	C.mpv_abort_async_command(cctx, creply_userdata)
@@ -269,8 +269,8 @@ func mpv_abort_async_command(ctx *mpv_handle, reply_userdata uint32) {
 	runtime.KeepAlive(cctxAllocMap)
 }
 
-// mpv_set_property function as declared in mpv/client.h:1130
-func mpv_set_property(ctx *mpv_handle, name string, format mpv_format, data unsafe.Pointer) int32 {
+// set_property function as declared in mpv/client.h:1130
+func set_property(ctx *handle, name string, format format, data unsafe.Pointer) int32 {
 	cctx, cctxAllocMap := (*C.mpv_handle)(unsafe.Pointer(ctx)), cgoAllocsUnknown
 	cname, cnameAllocMap := unpackPCharString(name)
 	cformat, cformatAllocMap := (C.mpv_format)(format), cgoAllocsUnknown
@@ -284,8 +284,8 @@ func mpv_set_property(ctx *mpv_handle, name string, format mpv_format, data unsa
 	return __v
 }
 
-// mpv_set_property_string function as declared in mpv/client.h:1138
-func mpv_set_property_string(ctx *mpv_handle, name string, data string) int32 {
+// set_property_string function as declared in mpv/client.h:1138
+func set_property_string(ctx *handle, name string, data string) int32 {
 	cctx, cctxAllocMap := (*C.mpv_handle)(unsafe.Pointer(ctx)), cgoAllocsUnknown
 	cname, cnameAllocMap := unpackPCharString(name)
 	cdata, cdataAllocMap := unpackPCharString(data)
@@ -297,8 +297,8 @@ func mpv_set_property_string(ctx *mpv_handle, name string, data string) int32 {
 	return __v
 }
 
-// mpv_set_property_async function as declared in mpv/client.h:1155
-func mpv_set_property_async(ctx *mpv_handle, reply_userdata uint32, name string, format mpv_format, data unsafe.Pointer) int32 {
+// set_property_async function as declared in mpv/client.h:1155
+func set_property_async(ctx *handle, reply_userdata uint32, name string, format format, data unsafe.Pointer) int32 {
 	cctx, cctxAllocMap := (*C.mpv_handle)(unsafe.Pointer(ctx)), cgoAllocsUnknown
 	creply_userdata, creply_userdataAllocMap := (C.uint64_t)(reply_userdata), cgoAllocsUnknown
 	cname, cnameAllocMap := unpackPCharString(name)
@@ -314,8 +314,8 @@ func mpv_set_property_async(ctx *mpv_handle, reply_userdata uint32, name string,
 	return __v
 }
 
-// mpv_get_property function as declared in mpv/client.h:1176
-func mpv_get_property(ctx *mpv_handle, name string, format mpv_format, data unsafe.Pointer) int32 {
+// get_property function as declared in mpv/client.h:1176
+func get_property(ctx *handle, name string, format format, data unsafe.Pointer) int32 {
 	cctx, cctxAllocMap := (*C.mpv_handle)(unsafe.Pointer(ctx)), cgoAllocsUnknown
 	cname, cnameAllocMap := unpackPCharString(name)
 	cformat, cformatAllocMap := (C.mpv_format)(format), cgoAllocsUnknown
@@ -329,8 +329,8 @@ func mpv_get_property(ctx *mpv_handle, name string, format mpv_format, data unsa
 	return __v
 }
 
-// mpv_get_property_string function as declared in mpv/client.h:1192
-func mpv_get_property_string(ctx *mpv_handle, name string) *byte {
+// get_property_string function as declared in mpv/client.h:1192
+func get_property_string(ctx *handle, name string) *byte {
 	cctx, cctxAllocMap := (*C.mpv_handle)(unsafe.Pointer(ctx)), cgoAllocsUnknown
 	cname, cnameAllocMap := unpackPCharString(name)
 	__ret := C.mpv_get_property_string(cctx, cname)
@@ -340,8 +340,8 @@ func mpv_get_property_string(ctx *mpv_handle, name string) *byte {
 	return __v
 }
 
-// mpv_get_property_osd_string function as declared in mpv/client.h:1201
-func mpv_get_property_osd_string(ctx *mpv_handle, name string) *byte {
+// get_property_osd_string function as declared in mpv/client.h:1201
+func get_property_osd_string(ctx *handle, name string) *byte {
 	cctx, cctxAllocMap := (*C.mpv_handle)(unsafe.Pointer(ctx)), cgoAllocsUnknown
 	cname, cnameAllocMap := unpackPCharString(name)
 	__ret := C.mpv_get_property_osd_string(cctx, cname)
@@ -351,8 +351,8 @@ func mpv_get_property_osd_string(ctx *mpv_handle, name string) *byte {
 	return __v
 }
 
-// mpv_get_property_async function as declared in mpv/client.h:1215
-func mpv_get_property_async(ctx *mpv_handle, reply_userdata uint32, name string, format mpv_format) int32 {
+// get_property_async function as declared in mpv/client.h:1215
+func get_property_async(ctx *handle, reply_userdata uint32, name string, format format) int32 {
 	cctx, cctxAllocMap := (*C.mpv_handle)(unsafe.Pointer(ctx)), cgoAllocsUnknown
 	creply_userdata, creply_userdataAllocMap := (C.uint64_t)(reply_userdata), cgoAllocsUnknown
 	cname, cnameAllocMap := unpackPCharString(name)
@@ -366,8 +366,8 @@ func mpv_get_property_async(ctx *mpv_handle, reply_userdata uint32, name string,
 	return __v
 }
 
-// mpv_observe_property function as declared in mpv/client.h:1273
-func mpv_observe_property(mpv *mpv_handle, reply_userdata uint32, name string, format mpv_format) int32 {
+// observe_property function as declared in mpv/client.h:1273
+func observe_property(mpv *handle, reply_userdata uint32, name string, format format) int32 {
 	cmpv, cmpvAllocMap := (*C.mpv_handle)(unsafe.Pointer(mpv)), cgoAllocsUnknown
 	creply_userdata, creply_userdataAllocMap := (C.uint64_t)(reply_userdata), cgoAllocsUnknown
 	cname, cnameAllocMap := unpackPCharString(name)
@@ -381,8 +381,8 @@ func mpv_observe_property(mpv *mpv_handle, reply_userdata uint32, name string, f
 	return __v
 }
 
-// mpv_unobserve_property function as declared in mpv/client.h:1286
-func mpv_unobserve_property(mpv *mpv_handle, registered_reply_userdata uint32) int32 {
+// unobserve_property function as declared in mpv/client.h:1286
+func unobserve_property(mpv *handle, registered_reply_userdata uint32) int32 {
 	cmpv, cmpvAllocMap := (*C.mpv_handle)(unsafe.Pointer(mpv)), cgoAllocsUnknown
 	cregistered_reply_userdata, cregistered_reply_userdataAllocMap := (C.uint64_t)(registered_reply_userdata), cgoAllocsUnknown
 	__ret := C.mpv_unobserve_property(cmpv, cregistered_reply_userdata)
@@ -392,8 +392,8 @@ func mpv_unobserve_property(mpv *mpv_handle, registered_reply_userdata uint32) i
 	return __v
 }
 
-// mpv_event_name function as declared in mpv/client.h:1512
-func mpv_event_name(event mpv_event_id) string {
+// event_name function as declared in mpv/client.h:1512
+func event_name(event event_id) string {
 	cevent, ceventAllocMap := (C.mpv_event_id)(event), cgoAllocsUnknown
 	__ret := C.mpv_event_name(cevent)
 	runtime.KeepAlive(ceventAllocMap)
@@ -401,8 +401,8 @@ func mpv_event_name(event mpv_event_id) string {
 	return __v
 }
 
-// mpv_event_to_node function as declared in mpv/client.h:1785
-func mpv_event_to_node(dst *mpv_node, src *mpv_event) int32 {
+// event_to_node function as declared in mpv/client.h:1785
+func event_to_node(dst *node, src *event) int32 {
 	cdst, cdstAllocMap := (*C.mpv_node)(unsafe.Pointer(dst)), cgoAllocsUnknown
 	csrc, csrcAllocMap := (*C.mpv_event)(unsafe.Pointer(src)), cgoAllocsUnknown
 	__ret := C.mpv_event_to_node(cdst, csrc)
@@ -412,8 +412,8 @@ func mpv_event_to_node(dst *mpv_node, src *mpv_event) int32 {
 	return __v
 }
 
-// mpv_request_event function as declared in mpv/client.h:1801
-func mpv_request_event(ctx *mpv_handle, event mpv_event_id, enable int32) int32 {
+// request_event function as declared in mpv/client.h:1801
+func request_event(ctx *handle, event event_id, enable int32) int32 {
 	cctx, cctxAllocMap := (*C.mpv_handle)(unsafe.Pointer(ctx)), cgoAllocsUnknown
 	cevent, ceventAllocMap := (C.mpv_event_id)(event), cgoAllocsUnknown
 	cenable, cenableAllocMap := (C.int)(enable), cgoAllocsUnknown
@@ -425,8 +425,8 @@ func mpv_request_event(ctx *mpv_handle, event mpv_event_id, enable int32) int32 
 	return __v
 }
 
-// mpv_request_log_messages function as declared in mpv/client.h:1817
-func mpv_request_log_messages(ctx *mpv_handle, min_level string) int32 {
+// request_log_messages function as declared in mpv/client.h:1817
+func request_log_messages(ctx *handle, min_level string) int32 {
 	cctx, cctxAllocMap := (*C.mpv_handle)(unsafe.Pointer(ctx)), cgoAllocsUnknown
 	cmin_level, cmin_levelAllocMap := unpackPCharString(min_level)
 	__ret := C.mpv_request_log_messages(cctx, cmin_level)
@@ -436,33 +436,33 @@ func mpv_request_log_messages(ctx *mpv_handle, min_level string) int32 {
 	return __v
 }
 
-// mpv_wait_event function as declared in mpv/client.h:1850
-func mpv_wait_event(ctx *mpv_handle, timeout float64) *mpv_event {
+// wait_event function as declared in mpv/client.h:1850
+func wait_event(ctx *handle, timeout float64) *event {
 	cctx, cctxAllocMap := (*C.mpv_handle)(unsafe.Pointer(ctx)), cgoAllocsUnknown
 	ctimeout, ctimeoutAllocMap := (C.double)(timeout), cgoAllocsUnknown
 	__ret := C.mpv_wait_event(cctx, ctimeout)
 	runtime.KeepAlive(ctimeoutAllocMap)
 	runtime.KeepAlive(cctxAllocMap)
-	__v := *(**mpv_event)(unsafe.Pointer(&__ret))
+	__v := *(**event)(unsafe.Pointer(&__ret))
 	return __v
 }
 
-// mpv_wakeup function as declared in mpv/client.h:1865
-func mpv_wakeup(ctx *mpv_handle) {
+// wakeup function as declared in mpv/client.h:1865
+func wakeup(ctx *handle) {
 	cctx, cctxAllocMap := (*C.mpv_handle)(unsafe.Pointer(ctx)), cgoAllocsUnknown
 	C.mpv_wakeup(cctx)
 	runtime.KeepAlive(cctxAllocMap)
 }
 
-// mpv_wait_async_requests function as declared in mpv/client.h:1917
-func mpv_wait_async_requests(ctx *mpv_handle) {
+// wait_async_requests function as declared in mpv/client.h:1917
+func wait_async_requests(ctx *handle) {
 	cctx, cctxAllocMap := (*C.mpv_handle)(unsafe.Pointer(ctx)), cgoAllocsUnknown
 	C.mpv_wait_async_requests(cctx)
 	runtime.KeepAlive(cctxAllocMap)
 }
 
-// mpv_hook_add function as declared in mpv/client.h:1954
-func mpv_hook_add(ctx *mpv_handle, reply_userdata uint32, name string, priority int32) int32 {
+// hook_add function as declared in mpv/client.h:1954
+func hook_add(ctx *handle, reply_userdata uint32, name string, priority int32) int32 {
 	cctx, cctxAllocMap := (*C.mpv_handle)(unsafe.Pointer(ctx)), cgoAllocsUnknown
 	creply_userdata, creply_userdataAllocMap := (C.uint64_t)(reply_userdata), cgoAllocsUnknown
 	cname, cnameAllocMap := unpackPCharString(name)
@@ -476,8 +476,8 @@ func mpv_hook_add(ctx *mpv_handle, reply_userdata uint32, name string, priority 
 	return __v
 }
 
-// mpv_hook_continue function as declared in mpv/client.h:1973
-func mpv_hook_continue(ctx *mpv_handle, id uint32) int32 {
+// hook_continue function as declared in mpv/client.h:1973
+func hook_continue(ctx *handle, id uint32) int32 {
 	cctx, cctxAllocMap := (*C.mpv_handle)(unsafe.Pointer(ctx)), cgoAllocsUnknown
 	cid, cidAllocMap := (C.uint64_t)(id), cgoAllocsUnknown
 	__ret := C.mpv_hook_continue(cctx, cid)
@@ -487,8 +487,8 @@ func mpv_hook_continue(ctx *mpv_handle, id uint32) int32 {
 	return __v
 }
 
-// mpv_get_wakeup_pipe function as declared in mpv/client.h:2035
-func mpv_get_wakeup_pipe(ctx *mpv_handle) int32 {
+// get_wakeup_pipe function as declared in mpv/client.h:2035
+func get_wakeup_pipe(ctx *handle) int32 {
 	cctx, cctxAllocMap := (*C.mpv_handle)(unsafe.Pointer(ctx)), cgoAllocsUnknown
 	__ret := C.mpv_get_wakeup_pipe(cctx)
 	runtime.KeepAlive(cctxAllocMap)
@@ -496,8 +496,8 @@ func mpv_get_wakeup_pipe(ctx *mpv_handle) int32 {
 	return __v
 }
 
-// mpv_get_sub_api function as declared in mpv/client.h:2059
-func mpv_get_sub_api(ctx *mpv_handle, sub_api mpv_sub_api) unsafe.Pointer {
+// get_sub_api function as declared in mpv/client.h:2059
+func get_sub_api(ctx *handle, sub_api sub_api) unsafe.Pointer {
 	cctx, cctxAllocMap := (*C.mpv_handle)(unsafe.Pointer(ctx)), cgoAllocsUnknown
 	csub_api, csub_apiAllocMap := (C.mpv_sub_api)(sub_api), cgoAllocsUnknown
 	__ret := C.mpv_get_sub_api(cctx, csub_api)

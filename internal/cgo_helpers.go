@@ -4,7 +4,7 @@
 package internal
 
 /*
-#include "client.h"
+#include "mpv.h"
 #include <stdlib.h>
 #include "cgo_helpers.h"
 */
@@ -17,7 +17,7 @@ import (
 )
 
 // Ref returns a reference to C object as it is.
-func (x *mpv_handle) Ref() *C.mpv_handle {
+func (x *handle) Ref() *C.mpv_handle {
 	if x == nil {
 		return nil
 	}
@@ -25,34 +25,34 @@ func (x *mpv_handle) Ref() *C.mpv_handle {
 }
 
 // Free cleanups the referenced memory using C free.
-func (x *mpv_handle) Free() {
+func (x *handle) Free() {
 	if x != nil {
 		C.free(unsafe.Pointer(x))
 	}
 }
 
-// Newmpv_handleRef converts the C object reference into a raw struct reference without wrapping.
-func mpv_handle_ref(ref unsafe.Pointer) *mpv_handle {
-	return (*mpv_handle)(ref)
+// handle_ref converts the C object reference into a raw struct reference without wrapping.
+func handle_ref(ref unsafe.Pointer) *handle {
+	return (*handle)(ref)
 }
 
-// Newmpv_handle allocates a new C object of this type and converts the reference into
+// handle_new allocates a new C object of this type and converts the reference into
 // a raw struct reference without wrapping.
-func mpv_handle_new() *mpv_handle {
-	return (*mpv_handle)(allocMpv_handleMemory(1))
+func handle_new() *handle {
+	return (*handle)(allocHandleMemory(1))
 }
 
-// allocMpv_handleMemory allocates memory for type C.mpv_handle in C.
+// allocHandleMemory allocates memory for type C.mpv_handle in C.
 // The caller is responsible for freeing the this memory via C.free.
-func allocMpv_handleMemory(n int) unsafe.Pointer {
-	mem, err := C.calloc(C.size_t(n), (C.size_t)(sizeOfMpv_handleValue))
+func allocHandleMemory(n int) unsafe.Pointer {
+	mem, err := C.calloc(C.size_t(n), (C.size_t)(sizeOfHandleValue))
 	if mem == nil {
 		panic(fmt.Sprintln("memory alloc error: ", err))
 	}
 	return mem
 }
 
-const sizeOfMpv_handleValue = unsafe.Sizeof([1]C.mpv_handle{})
+const sizeOfHandleValue = unsafe.Sizeof([1]C.mpv_handle{})
 
 // cgoAllocMap stores pointers to C allocated memory for future reference.
 type cgoAllocMap struct {
@@ -105,15 +105,15 @@ func (a *cgoAllocMap) Free() {
 }
 
 // PassRef returns a reference to C object as it is or allocates a new C object of this type.
-func (x *mpv_handle) PassRef() *C.mpv_handle {
+func (x *handle) PassRef() *C.mpv_handle {
 	if x == nil {
-		x = (*mpv_handle)(allocMpv_handleMemory(1))
+		x = (*handle)(allocHandleMemory(1))
 	}
 	return (*C.mpv_handle)(unsafe.Pointer(x))
 }
 
 // Ref returns a reference to C object as it is.
-func (x *mpv_node) Ref() *C.mpv_node {
+func (x *node) Ref() *C.mpv_node {
 	if x == nil {
 		return nil
 	}
@@ -121,45 +121,45 @@ func (x *mpv_node) Ref() *C.mpv_node {
 }
 
 // Free cleanups the referenced memory using C free.
-func (x *mpv_node) Free() {
+func (x *node) Free() {
 	if x != nil {
 		C.free(unsafe.Pointer(x))
 	}
 }
 
-// Newmpv_nodeRef converts the C object reference into a raw struct reference without wrapping.
-func mpv_node_ref(ref unsafe.Pointer) *mpv_node {
-	return (*mpv_node)(ref)
+// node_ref converts the C object reference into a raw struct reference without wrapping.
+func node_ref(ref unsafe.Pointer) *node {
+	return (*node)(ref)
 }
 
-// Newmpv_node allocates a new C object of this type and converts the reference into
+// node_new allocates a new C object of this type and converts the reference into
 // a raw struct reference without wrapping.
-func mpv_node_new() *mpv_node {
-	return (*mpv_node)(allocMpv_nodeMemory(1))
+func node_new() *node {
+	return (*node)(allocNodeMemory(1))
 }
 
-// allocMpv_nodeMemory allocates memory for type C.mpv_node in C.
+// allocNodeMemory allocates memory for type C.mpv_node in C.
 // The caller is responsible for freeing the this memory via C.free.
-func allocMpv_nodeMemory(n int) unsafe.Pointer {
-	mem, err := C.calloc(C.size_t(n), (C.size_t)(sizeOfMpv_nodeValue))
+func allocNodeMemory(n int) unsafe.Pointer {
+	mem, err := C.calloc(C.size_t(n), (C.size_t)(sizeOfNodeValue))
 	if mem == nil {
 		panic(fmt.Sprintln("memory alloc error: ", err))
 	}
 	return mem
 }
 
-const sizeOfMpv_nodeValue = unsafe.Sizeof([1]C.mpv_node{})
+const sizeOfNodeValue = unsafe.Sizeof([1]C.mpv_node{})
 
 // PassRef returns a reference to C object as it is or allocates a new C object of this type.
-func (x *mpv_node) PassRef() *C.mpv_node {
+func (x *node) PassRef() *C.mpv_node {
 	if x == nil {
-		x = (*mpv_node)(allocMpv_nodeMemory(1))
+		x = (*node)(allocNodeMemory(1))
 	}
 	return (*C.mpv_node)(unsafe.Pointer(x))
 }
 
 // Ref returns a reference to C object as it is.
-func (x *mpv_node_list) Ref() *C.mpv_node_list {
+func (x *node_list) Ref() *C.mpv_node_list {
 	if x == nil {
 		return nil
 	}
@@ -167,45 +167,45 @@ func (x *mpv_node_list) Ref() *C.mpv_node_list {
 }
 
 // Free cleanups the referenced memory using C free.
-func (x *mpv_node_list) Free() {
+func (x *node_list) Free() {
 	if x != nil {
 		C.free(unsafe.Pointer(x))
 	}
 }
 
-// Newmpv_node_listRef converts the C object reference into a raw struct reference without wrapping.
-func mpv_node_list_ref(ref unsafe.Pointer) *mpv_node_list {
-	return (*mpv_node_list)(ref)
+// node_list_ref converts the C object reference into a raw struct reference without wrapping.
+func node_list_ref(ref unsafe.Pointer) *node_list {
+	return (*node_list)(ref)
 }
 
-// Newmpv_node_list allocates a new C object of this type and converts the reference into
+// node_list_new allocates a new C object of this type and converts the reference into
 // a raw struct reference without wrapping.
-func mpv_node_list_new() *mpv_node_list {
-	return (*mpv_node_list)(allocMpv_node_listMemory(1))
+func node_list_new() *node_list {
+	return (*node_list)(allocNode_listMemory(1))
 }
 
-// allocMpv_node_listMemory allocates memory for type C.mpv_node_list in C.
+// allocNode_listMemory allocates memory for type C.mpv_node_list in C.
 // The caller is responsible for freeing the this memory via C.free.
-func allocMpv_node_listMemory(n int) unsafe.Pointer {
-	mem, err := C.calloc(C.size_t(n), (C.size_t)(sizeOfMpv_node_listValue))
+func allocNode_listMemory(n int) unsafe.Pointer {
+	mem, err := C.calloc(C.size_t(n), (C.size_t)(sizeOfNode_listValue))
 	if mem == nil {
 		panic(fmt.Sprintln("memory alloc error: ", err))
 	}
 	return mem
 }
 
-const sizeOfMpv_node_listValue = unsafe.Sizeof([1]C.mpv_node_list{})
+const sizeOfNode_listValue = unsafe.Sizeof([1]C.mpv_node_list{})
 
 // PassRef returns a reference to C object as it is or allocates a new C object of this type.
-func (x *mpv_node_list) PassRef() *C.mpv_node_list {
+func (x *node_list) PassRef() *C.mpv_node_list {
 	if x == nil {
-		x = (*mpv_node_list)(allocMpv_node_listMemory(1))
+		x = (*node_list)(allocNode_listMemory(1))
 	}
 	return (*C.mpv_node_list)(unsafe.Pointer(x))
 }
 
 // Ref returns a reference to C object as it is.
-func (x *mpv_byte_array) Ref() *C.mpv_byte_array {
+func (x *byte_array) Ref() *C.mpv_byte_array {
 	if x == nil {
 		return nil
 	}
@@ -213,45 +213,45 @@ func (x *mpv_byte_array) Ref() *C.mpv_byte_array {
 }
 
 // Free cleanups the referenced memory using C free.
-func (x *mpv_byte_array) Free() {
+func (x *byte_array) Free() {
 	if x != nil {
 		C.free(unsafe.Pointer(x))
 	}
 }
 
-// Newmpv_byte_arrayRef converts the C object reference into a raw struct reference without wrapping.
-func mpv_byte_array_ref(ref unsafe.Pointer) *mpv_byte_array {
-	return (*mpv_byte_array)(ref)
+// byte_array_ref converts the C object reference into a raw struct reference without wrapping.
+func byte_array_ref(ref unsafe.Pointer) *byte_array {
+	return (*byte_array)(ref)
 }
 
-// Newmpv_byte_array allocates a new C object of this type and converts the reference into
+// byte_array_new allocates a new C object of this type and converts the reference into
 // a raw struct reference without wrapping.
-func mpv_byte_array_new() *mpv_byte_array {
-	return (*mpv_byte_array)(allocMpv_byte_arrayMemory(1))
+func byte_array_new() *byte_array {
+	return (*byte_array)(allocByte_arrayMemory(1))
 }
 
-// allocMpv_byte_arrayMemory allocates memory for type C.mpv_byte_array in C.
+// allocByte_arrayMemory allocates memory for type C.mpv_byte_array in C.
 // The caller is responsible for freeing the this memory via C.free.
-func allocMpv_byte_arrayMemory(n int) unsafe.Pointer {
-	mem, err := C.calloc(C.size_t(n), (C.size_t)(sizeOfMpv_byte_arrayValue))
+func allocByte_arrayMemory(n int) unsafe.Pointer {
+	mem, err := C.calloc(C.size_t(n), (C.size_t)(sizeOfByte_arrayValue))
 	if mem == nil {
 		panic(fmt.Sprintln("memory alloc error: ", err))
 	}
 	return mem
 }
 
-const sizeOfMpv_byte_arrayValue = unsafe.Sizeof([1]C.mpv_byte_array{})
+const sizeOfByte_arrayValue = unsafe.Sizeof([1]C.mpv_byte_array{})
 
 // PassRef returns a reference to C object as it is or allocates a new C object of this type.
-func (x *mpv_byte_array) PassRef() *C.mpv_byte_array {
+func (x *byte_array) PassRef() *C.mpv_byte_array {
 	if x == nil {
-		x = (*mpv_byte_array)(allocMpv_byte_arrayMemory(1))
+		x = (*byte_array)(allocByte_arrayMemory(1))
 	}
 	return (*C.mpv_byte_array)(unsafe.Pointer(x))
 }
 
 // Ref returns a reference to C object as it is.
-func (x *mpv_event_property) Ref() *C.mpv_event_property {
+func (x *event_property) Ref() *C.mpv_event_property {
 	if x == nil {
 		return nil
 	}
@@ -259,45 +259,45 @@ func (x *mpv_event_property) Ref() *C.mpv_event_property {
 }
 
 // Free cleanups the referenced memory using C free.
-func (x *mpv_event_property) Free() {
+func (x *event_property) Free() {
 	if x != nil {
 		C.free(unsafe.Pointer(x))
 	}
 }
 
-// Newmpv_event_propertyRef converts the C object reference into a raw struct reference without wrapping.
-func mpv_event_property_ref(ref unsafe.Pointer) *mpv_event_property {
-	return (*mpv_event_property)(ref)
+// event_property_ref converts the C object reference into a raw struct reference without wrapping.
+func event_property_ref(ref unsafe.Pointer) *event_property {
+	return (*event_property)(ref)
 }
 
-// Newmpv_event_property allocates a new C object of this type and converts the reference into
+// event_property_new allocates a new C object of this type and converts the reference into
 // a raw struct reference without wrapping.
-func mpv_event_property_new() *mpv_event_property {
-	return (*mpv_event_property)(allocMpv_event_propertyMemory(1))
+func event_property_new() *event_property {
+	return (*event_property)(allocEvent_propertyMemory(1))
 }
 
-// allocMpv_event_propertyMemory allocates memory for type C.mpv_event_property in C.
+// allocEvent_propertyMemory allocates memory for type C.mpv_event_property in C.
 // The caller is responsible for freeing the this memory via C.free.
-func allocMpv_event_propertyMemory(n int) unsafe.Pointer {
-	mem, err := C.calloc(C.size_t(n), (C.size_t)(sizeOfMpv_event_propertyValue))
+func allocEvent_propertyMemory(n int) unsafe.Pointer {
+	mem, err := C.calloc(C.size_t(n), (C.size_t)(sizeOfEvent_propertyValue))
 	if mem == nil {
 		panic(fmt.Sprintln("memory alloc error: ", err))
 	}
 	return mem
 }
 
-const sizeOfMpv_event_propertyValue = unsafe.Sizeof([1]C.mpv_event_property{})
+const sizeOfEvent_propertyValue = unsafe.Sizeof([1]C.mpv_event_property{})
 
 // PassRef returns a reference to C object as it is or allocates a new C object of this type.
-func (x *mpv_event_property) PassRef() *C.mpv_event_property {
+func (x *event_property) PassRef() *C.mpv_event_property {
 	if x == nil {
-		x = (*mpv_event_property)(allocMpv_event_propertyMemory(1))
+		x = (*event_property)(allocEvent_propertyMemory(1))
 	}
 	return (*C.mpv_event_property)(unsafe.Pointer(x))
 }
 
 // Ref returns a reference to C object as it is.
-func (x *mpv_event_log_message) Ref() *C.mpv_event_log_message {
+func (x *event_log_message) Ref() *C.mpv_event_log_message {
 	if x == nil {
 		return nil
 	}
@@ -305,45 +305,45 @@ func (x *mpv_event_log_message) Ref() *C.mpv_event_log_message {
 }
 
 // Free cleanups the referenced memory using C free.
-func (x *mpv_event_log_message) Free() {
+func (x *event_log_message) Free() {
 	if x != nil {
 		C.free(unsafe.Pointer(x))
 	}
 }
 
-// Newmpv_event_log_messageRef converts the C object reference into a raw struct reference without wrapping.
-func mpv_event_log_message_ref(ref unsafe.Pointer) *mpv_event_log_message {
-	return (*mpv_event_log_message)(ref)
+// event_log_message_ref converts the C object reference into a raw struct reference without wrapping.
+func event_log_message_ref(ref unsafe.Pointer) *event_log_message {
+	return (*event_log_message)(ref)
 }
 
-// Newmpv_event_log_message allocates a new C object of this type and converts the reference into
+// event_log_message_new allocates a new C object of this type and converts the reference into
 // a raw struct reference without wrapping.
-func mpv_event_log_message_new() *mpv_event_log_message {
-	return (*mpv_event_log_message)(allocMpv_event_log_messageMemory(1))
+func event_log_message_new() *event_log_message {
+	return (*event_log_message)(allocEvent_log_messageMemory(1))
 }
 
-// allocMpv_event_log_messageMemory allocates memory for type C.mpv_event_log_message in C.
+// allocEvent_log_messageMemory allocates memory for type C.mpv_event_log_message in C.
 // The caller is responsible for freeing the this memory via C.free.
-func allocMpv_event_log_messageMemory(n int) unsafe.Pointer {
-	mem, err := C.calloc(C.size_t(n), (C.size_t)(sizeOfMpv_event_log_messageValue))
+func allocEvent_log_messageMemory(n int) unsafe.Pointer {
+	mem, err := C.calloc(C.size_t(n), (C.size_t)(sizeOfEvent_log_messageValue))
 	if mem == nil {
 		panic(fmt.Sprintln("memory alloc error: ", err))
 	}
 	return mem
 }
 
-const sizeOfMpv_event_log_messageValue = unsafe.Sizeof([1]C.mpv_event_log_message{})
+const sizeOfEvent_log_messageValue = unsafe.Sizeof([1]C.mpv_event_log_message{})
 
 // PassRef returns a reference to C object as it is or allocates a new C object of this type.
-func (x *mpv_event_log_message) PassRef() *C.mpv_event_log_message {
+func (x *event_log_message) PassRef() *C.mpv_event_log_message {
 	if x == nil {
-		x = (*mpv_event_log_message)(allocMpv_event_log_messageMemory(1))
+		x = (*event_log_message)(allocEvent_log_messageMemory(1))
 	}
 	return (*C.mpv_event_log_message)(unsafe.Pointer(x))
 }
 
 // Ref returns a reference to C object as it is.
-func (x *mpv_event_start_file) Ref() *C.mpv_event_start_file {
+func (x *event_start_file) Ref() *C.mpv_event_start_file {
 	if x == nil {
 		return nil
 	}
@@ -351,45 +351,45 @@ func (x *mpv_event_start_file) Ref() *C.mpv_event_start_file {
 }
 
 // Free cleanups the referenced memory using C free.
-func (x *mpv_event_start_file) Free() {
+func (x *event_start_file) Free() {
 	if x != nil {
 		C.free(unsafe.Pointer(x))
 	}
 }
 
-// Newmpv_event_start_fileRef converts the C object reference into a raw struct reference without wrapping.
-func mpv_event_start_file_ref(ref unsafe.Pointer) *mpv_event_start_file {
-	return (*mpv_event_start_file)(ref)
+// event_start_file_ref converts the C object reference into a raw struct reference without wrapping.
+func event_start_file_ref(ref unsafe.Pointer) *event_start_file {
+	return (*event_start_file)(ref)
 }
 
-// Newmpv_event_start_file allocates a new C object of this type and converts the reference into
+// event_start_file_new allocates a new C object of this type and converts the reference into
 // a raw struct reference without wrapping.
-func mpv_event_start_file_new() *mpv_event_start_file {
-	return (*mpv_event_start_file)(allocMpv_event_start_fileMemory(1))
+func event_start_file_new() *event_start_file {
+	return (*event_start_file)(allocEvent_start_fileMemory(1))
 }
 
-// allocMpv_event_start_fileMemory allocates memory for type C.mpv_event_start_file in C.
+// allocEvent_start_fileMemory allocates memory for type C.mpv_event_start_file in C.
 // The caller is responsible for freeing the this memory via C.free.
-func allocMpv_event_start_fileMemory(n int) unsafe.Pointer {
-	mem, err := C.calloc(C.size_t(n), (C.size_t)(sizeOfMpv_event_start_fileValue))
+func allocEvent_start_fileMemory(n int) unsafe.Pointer {
+	mem, err := C.calloc(C.size_t(n), (C.size_t)(sizeOfEvent_start_fileValue))
 	if mem == nil {
 		panic(fmt.Sprintln("memory alloc error: ", err))
 	}
 	return mem
 }
 
-const sizeOfMpv_event_start_fileValue = unsafe.Sizeof([1]C.mpv_event_start_file{})
+const sizeOfEvent_start_fileValue = unsafe.Sizeof([1]C.mpv_event_start_file{})
 
 // PassRef returns a reference to C object as it is or allocates a new C object of this type.
-func (x *mpv_event_start_file) PassRef() *C.mpv_event_start_file {
+func (x *event_start_file) PassRef() *C.mpv_event_start_file {
 	if x == nil {
-		x = (*mpv_event_start_file)(allocMpv_event_start_fileMemory(1))
+		x = (*event_start_file)(allocEvent_start_fileMemory(1))
 	}
 	return (*C.mpv_event_start_file)(unsafe.Pointer(x))
 }
 
 // Ref returns a reference to C object as it is.
-func (x *mpv_event_end_file) Ref() *C.mpv_event_end_file {
+func (x *event_end_file) Ref() *C.mpv_event_end_file {
 	if x == nil {
 		return nil
 	}
@@ -397,45 +397,45 @@ func (x *mpv_event_end_file) Ref() *C.mpv_event_end_file {
 }
 
 // Free cleanups the referenced memory using C free.
-func (x *mpv_event_end_file) Free() {
+func (x *event_end_file) Free() {
 	if x != nil {
 		C.free(unsafe.Pointer(x))
 	}
 }
 
-// Newmpv_event_end_fileRef converts the C object reference into a raw struct reference without wrapping.
-func mpv_event_end_file_ref(ref unsafe.Pointer) *mpv_event_end_file {
-	return (*mpv_event_end_file)(ref)
+// event_end_file_ref converts the C object reference into a raw struct reference without wrapping.
+func event_end_file_ref(ref unsafe.Pointer) *event_end_file {
+	return (*event_end_file)(ref)
 }
 
-// Newmpv_event_end_file allocates a new C object of this type and converts the reference into
+// event_end_file_new allocates a new C object of this type and converts the reference into
 // a raw struct reference without wrapping.
-func mpv_event_end_file_new() *mpv_event_end_file {
-	return (*mpv_event_end_file)(allocMpv_event_end_fileMemory(1))
+func event_end_file_new() *event_end_file {
+	return (*event_end_file)(allocEvent_end_fileMemory(1))
 }
 
-// allocMpv_event_end_fileMemory allocates memory for type C.mpv_event_end_file in C.
+// allocEvent_end_fileMemory allocates memory for type C.mpv_event_end_file in C.
 // The caller is responsible for freeing the this memory via C.free.
-func allocMpv_event_end_fileMemory(n int) unsafe.Pointer {
-	mem, err := C.calloc(C.size_t(n), (C.size_t)(sizeOfMpv_event_end_fileValue))
+func allocEvent_end_fileMemory(n int) unsafe.Pointer {
+	mem, err := C.calloc(C.size_t(n), (C.size_t)(sizeOfEvent_end_fileValue))
 	if mem == nil {
 		panic(fmt.Sprintln("memory alloc error: ", err))
 	}
 	return mem
 }
 
-const sizeOfMpv_event_end_fileValue = unsafe.Sizeof([1]C.mpv_event_end_file{})
+const sizeOfEvent_end_fileValue = unsafe.Sizeof([1]C.mpv_event_end_file{})
 
 // PassRef returns a reference to C object as it is or allocates a new C object of this type.
-func (x *mpv_event_end_file) PassRef() *C.mpv_event_end_file {
+func (x *event_end_file) PassRef() *C.mpv_event_end_file {
 	if x == nil {
-		x = (*mpv_event_end_file)(allocMpv_event_end_fileMemory(1))
+		x = (*event_end_file)(allocEvent_end_fileMemory(1))
 	}
 	return (*C.mpv_event_end_file)(unsafe.Pointer(x))
 }
 
 // Ref returns a reference to C object as it is.
-func (x *mpv_event_script_input_dispatch) Ref() *C.mpv_event_script_input_dispatch {
+func (x *event_script_input_dispatch) Ref() *C.mpv_event_script_input_dispatch {
 	if x == nil {
 		return nil
 	}
@@ -443,45 +443,45 @@ func (x *mpv_event_script_input_dispatch) Ref() *C.mpv_event_script_input_dispat
 }
 
 // Free cleanups the referenced memory using C free.
-func (x *mpv_event_script_input_dispatch) Free() {
+func (x *event_script_input_dispatch) Free() {
 	if x != nil {
 		C.free(unsafe.Pointer(x))
 	}
 }
 
-// Newmpv_event_script_input_dispatchRef converts the C object reference into a raw struct reference without wrapping.
-func mpv_event_script_input_dispatch_ref(ref unsafe.Pointer) *mpv_event_script_input_dispatch {
-	return (*mpv_event_script_input_dispatch)(ref)
+// event_script_input_dispatch_ref converts the C object reference into a raw struct reference without wrapping.
+func event_script_input_dispatch_ref(ref unsafe.Pointer) *event_script_input_dispatch {
+	return (*event_script_input_dispatch)(ref)
 }
 
-// Newmpv_event_script_input_dispatch allocates a new C object of this type and converts the reference into
+// event_script_input_dispatch_new allocates a new C object of this type and converts the reference into
 // a raw struct reference without wrapping.
-func mpv_event_script_input_dispatch_new() *mpv_event_script_input_dispatch {
-	return (*mpv_event_script_input_dispatch)(allocMpv_event_script_input_dispatchMemory(1))
+func event_script_input_dispatch_new() *event_script_input_dispatch {
+	return (*event_script_input_dispatch)(allocEvent_script_input_dispatchMemory(1))
 }
 
-// allocMpv_event_script_input_dispatchMemory allocates memory for type C.mpv_event_script_input_dispatch in C.
+// allocEvent_script_input_dispatchMemory allocates memory for type C.mpv_event_script_input_dispatch in C.
 // The caller is responsible for freeing the this memory via C.free.
-func allocMpv_event_script_input_dispatchMemory(n int) unsafe.Pointer {
-	mem, err := C.calloc(C.size_t(n), (C.size_t)(sizeOfMpv_event_script_input_dispatchValue))
+func allocEvent_script_input_dispatchMemory(n int) unsafe.Pointer {
+	mem, err := C.calloc(C.size_t(n), (C.size_t)(sizeOfEvent_script_input_dispatchValue))
 	if mem == nil {
 		panic(fmt.Sprintln("memory alloc error: ", err))
 	}
 	return mem
 }
 
-const sizeOfMpv_event_script_input_dispatchValue = unsafe.Sizeof([1]C.mpv_event_script_input_dispatch{})
+const sizeOfEvent_script_input_dispatchValue = unsafe.Sizeof([1]C.mpv_event_script_input_dispatch{})
 
 // PassRef returns a reference to C object as it is or allocates a new C object of this type.
-func (x *mpv_event_script_input_dispatch) PassRef() *C.mpv_event_script_input_dispatch {
+func (x *event_script_input_dispatch) PassRef() *C.mpv_event_script_input_dispatch {
 	if x == nil {
-		x = (*mpv_event_script_input_dispatch)(allocMpv_event_script_input_dispatchMemory(1))
+		x = (*event_script_input_dispatch)(allocEvent_script_input_dispatchMemory(1))
 	}
 	return (*C.mpv_event_script_input_dispatch)(unsafe.Pointer(x))
 }
 
 // Ref returns a reference to C object as it is.
-func (x *mpv_event_client_message) Ref() *C.mpv_event_client_message {
+func (x *event_client_message) Ref() *C.mpv_event_client_message {
 	if x == nil {
 		return nil
 	}
@@ -489,45 +489,45 @@ func (x *mpv_event_client_message) Ref() *C.mpv_event_client_message {
 }
 
 // Free cleanups the referenced memory using C free.
-func (x *mpv_event_client_message) Free() {
+func (x *event_client_message) Free() {
 	if x != nil {
 		C.free(unsafe.Pointer(x))
 	}
 }
 
-// Newmpv_event_client_messageRef converts the C object reference into a raw struct reference without wrapping.
-func mpv_event_client_message_ref(ref unsafe.Pointer) *mpv_event_client_message {
-	return (*mpv_event_client_message)(ref)
+// event_client_message_ref converts the C object reference into a raw struct reference without wrapping.
+func event_client_message_ref(ref unsafe.Pointer) *event_client_message {
+	return (*event_client_message)(ref)
 }
 
-// Newmpv_event_client_message allocates a new C object of this type and converts the reference into
+// event_client_message_new allocates a new C object of this type and converts the reference into
 // a raw struct reference without wrapping.
-func mpv_event_client_message_new() *mpv_event_client_message {
-	return (*mpv_event_client_message)(allocMpv_event_client_messageMemory(1))
+func event_client_message_new() *event_client_message {
+	return (*event_client_message)(allocEvent_client_messageMemory(1))
 }
 
-// allocMpv_event_client_messageMemory allocates memory for type C.mpv_event_client_message in C.
+// allocEvent_client_messageMemory allocates memory for type C.mpv_event_client_message in C.
 // The caller is responsible for freeing the this memory via C.free.
-func allocMpv_event_client_messageMemory(n int) unsafe.Pointer {
-	mem, err := C.calloc(C.size_t(n), (C.size_t)(sizeOfMpv_event_client_messageValue))
+func allocEvent_client_messageMemory(n int) unsafe.Pointer {
+	mem, err := C.calloc(C.size_t(n), (C.size_t)(sizeOfEvent_client_messageValue))
 	if mem == nil {
 		panic(fmt.Sprintln("memory alloc error: ", err))
 	}
 	return mem
 }
 
-const sizeOfMpv_event_client_messageValue = unsafe.Sizeof([1]C.mpv_event_client_message{})
+const sizeOfEvent_client_messageValue = unsafe.Sizeof([1]C.mpv_event_client_message{})
 
 // PassRef returns a reference to C object as it is or allocates a new C object of this type.
-func (x *mpv_event_client_message) PassRef() *C.mpv_event_client_message {
+func (x *event_client_message) PassRef() *C.mpv_event_client_message {
 	if x == nil {
-		x = (*mpv_event_client_message)(allocMpv_event_client_messageMemory(1))
+		x = (*event_client_message)(allocEvent_client_messageMemory(1))
 	}
 	return (*C.mpv_event_client_message)(unsafe.Pointer(x))
 }
 
 // Ref returns a reference to C object as it is.
-func (x *mpv_event_hook) Ref() *C.mpv_event_hook {
+func (x *event_hook) Ref() *C.mpv_event_hook {
 	if x == nil {
 		return nil
 	}
@@ -535,45 +535,45 @@ func (x *mpv_event_hook) Ref() *C.mpv_event_hook {
 }
 
 // Free cleanups the referenced memory using C free.
-func (x *mpv_event_hook) Free() {
+func (x *event_hook) Free() {
 	if x != nil {
 		C.free(unsafe.Pointer(x))
 	}
 }
 
-// Newmpv_event_hookRef converts the C object reference into a raw struct reference without wrapping.
-func mpv_event_hook_ref(ref unsafe.Pointer) *mpv_event_hook {
-	return (*mpv_event_hook)(ref)
+// event_hook_ref converts the C object reference into a raw struct reference without wrapping.
+func event_hook_ref(ref unsafe.Pointer) *event_hook {
+	return (*event_hook)(ref)
 }
 
-// Newmpv_event_hook allocates a new C object of this type and converts the reference into
+// event_hook_new allocates a new C object of this type and converts the reference into
 // a raw struct reference without wrapping.
-func mpv_event_hook_new() *mpv_event_hook {
-	return (*mpv_event_hook)(allocMpv_event_hookMemory(1))
+func event_hook_new() *event_hook {
+	return (*event_hook)(allocEvent_hookMemory(1))
 }
 
-// allocMpv_event_hookMemory allocates memory for type C.mpv_event_hook in C.
+// allocEvent_hookMemory allocates memory for type C.mpv_event_hook in C.
 // The caller is responsible for freeing the this memory via C.free.
-func allocMpv_event_hookMemory(n int) unsafe.Pointer {
-	mem, err := C.calloc(C.size_t(n), (C.size_t)(sizeOfMpv_event_hookValue))
+func allocEvent_hookMemory(n int) unsafe.Pointer {
+	mem, err := C.calloc(C.size_t(n), (C.size_t)(sizeOfEvent_hookValue))
 	if mem == nil {
 		panic(fmt.Sprintln("memory alloc error: ", err))
 	}
 	return mem
 }
 
-const sizeOfMpv_event_hookValue = unsafe.Sizeof([1]C.mpv_event_hook{})
+const sizeOfEvent_hookValue = unsafe.Sizeof([1]C.mpv_event_hook{})
 
 // PassRef returns a reference to C object as it is or allocates a new C object of this type.
-func (x *mpv_event_hook) PassRef() *C.mpv_event_hook {
+func (x *event_hook) PassRef() *C.mpv_event_hook {
 	if x == nil {
-		x = (*mpv_event_hook)(allocMpv_event_hookMemory(1))
+		x = (*event_hook)(allocEvent_hookMemory(1))
 	}
 	return (*C.mpv_event_hook)(unsafe.Pointer(x))
 }
 
 // Ref returns a reference to C object as it is.
-func (x *mpv_event_command) Ref() *C.mpv_event_command {
+func (x *event_command) Ref() *C.mpv_event_command {
 	if x == nil {
 		return nil
 	}
@@ -581,45 +581,45 @@ func (x *mpv_event_command) Ref() *C.mpv_event_command {
 }
 
 // Free cleanups the referenced memory using C free.
-func (x *mpv_event_command) Free() {
+func (x *event_command) Free() {
 	if x != nil {
 		C.free(unsafe.Pointer(x))
 	}
 }
 
-// Newmpv_event_commandRef converts the C object reference into a raw struct reference without wrapping.
-func mpv_event_command_ref(ref unsafe.Pointer) *mpv_event_command {
-	return (*mpv_event_command)(ref)
+// event_command_ref converts the C object reference into a raw struct reference without wrapping.
+func event_command_ref(ref unsafe.Pointer) *event_command {
+	return (*event_command)(ref)
 }
 
-// Newmpv_event_command allocates a new C object of this type and converts the reference into
+// event_command_new allocates a new C object of this type and converts the reference into
 // a raw struct reference without wrapping.
-func mpv_event_command_new() *mpv_event_command {
-	return (*mpv_event_command)(allocMpv_event_commandMemory(1))
+func event_command_new() *event_command {
+	return (*event_command)(allocEvent_commandMemory(1))
 }
 
-// allocMpv_event_commandMemory allocates memory for type C.mpv_event_command in C.
+// allocEvent_commandMemory allocates memory for type C.mpv_event_command in C.
 // The caller is responsible for freeing the this memory via C.free.
-func allocMpv_event_commandMemory(n int) unsafe.Pointer {
-	mem, err := C.calloc(C.size_t(n), (C.size_t)(sizeOfMpv_event_commandValue))
+func allocEvent_commandMemory(n int) unsafe.Pointer {
+	mem, err := C.calloc(C.size_t(n), (C.size_t)(sizeOfEvent_commandValue))
 	if mem == nil {
 		panic(fmt.Sprintln("memory alloc error: ", err))
 	}
 	return mem
 }
 
-const sizeOfMpv_event_commandValue = unsafe.Sizeof([1]C.mpv_event_command{})
+const sizeOfEvent_commandValue = unsafe.Sizeof([1]C.mpv_event_command{})
 
 // PassRef returns a reference to C object as it is or allocates a new C object of this type.
-func (x *mpv_event_command) PassRef() *C.mpv_event_command {
+func (x *event_command) PassRef() *C.mpv_event_command {
 	if x == nil {
-		x = (*mpv_event_command)(allocMpv_event_commandMemory(1))
+		x = (*event_command)(allocEvent_commandMemory(1))
 	}
 	return (*C.mpv_event_command)(unsafe.Pointer(x))
 }
 
 // Ref returns a reference to C object as it is.
-func (x *mpv_event) Ref() *C.mpv_event {
+func (x *event) Ref() *C.mpv_event {
 	if x == nil {
 		return nil
 	}
@@ -627,39 +627,39 @@ func (x *mpv_event) Ref() *C.mpv_event {
 }
 
 // Free cleanups the referenced memory using C free.
-func (x *mpv_event) Free() {
+func (x *event) Free() {
 	if x != nil {
 		C.free(unsafe.Pointer(x))
 	}
 }
 
-// Newmpv_eventRef converts the C object reference into a raw struct reference without wrapping.
-func mpv_event_ref(ref unsafe.Pointer) *mpv_event {
-	return (*mpv_event)(ref)
+// event_ref converts the C object reference into a raw struct reference without wrapping.
+func event_ref(ref unsafe.Pointer) *event {
+	return (*event)(ref)
 }
 
-// Newmpv_event allocates a new C object of this type and converts the reference into
+// event_new allocates a new C object of this type and converts the reference into
 // a raw struct reference without wrapping.
-func mpv_event_new() *mpv_event {
-	return (*mpv_event)(allocMpv_eventMemory(1))
+func event_new() *event {
+	return (*event)(allocEventMemory(1))
 }
 
-// allocMpv_eventMemory allocates memory for type C.mpv_event in C.
+// allocEventMemory allocates memory for type C.mpv_event in C.
 // The caller is responsible for freeing the this memory via C.free.
-func allocMpv_eventMemory(n int) unsafe.Pointer {
-	mem, err := C.calloc(C.size_t(n), (C.size_t)(sizeOfMpv_eventValue))
+func allocEventMemory(n int) unsafe.Pointer {
+	mem, err := C.calloc(C.size_t(n), (C.size_t)(sizeOfEventValue))
 	if mem == nil {
 		panic(fmt.Sprintln("memory alloc error: ", err))
 	}
 	return mem
 }
 
-const sizeOfMpv_eventValue = unsafe.Sizeof([1]C.mpv_event{})
+const sizeOfEventValue = unsafe.Sizeof([1]C.mpv_event{})
 
 // PassRef returns a reference to C object as it is or allocates a new C object of this type.
-func (x *mpv_event) PassRef() *C.mpv_event {
+func (x *event) PassRef() *C.mpv_event {
 	if x == nil {
-		x = (*mpv_event)(allocMpv_eventMemory(1))
+		x = (*event)(allocEventMemory(1))
 	}
 	return (*C.mpv_event)(unsafe.Pointer(x))
 }
@@ -762,8 +762,8 @@ func packSString(v []string, ptr0 **C.char) {
 	}
 }
 
-// copyPMpv_nodeBytes copies the data from Go slice as *C.mpv_node.
-func copyPMpv_nodeBytes(slice *sliceHeader) (*C.mpv_node, *cgoAllocMap) {
+// copyPNodeBytes copies the data from Go slice as *C.mpv_node.
+func copyPNodeBytes(slice *sliceHeader) (*C.mpv_node, *cgoAllocMap) {
 	allocs := new(cgoAllocMap)
 	defer runtime.SetFinalizer(allocs, func(a *cgoAllocMap) {
 		go a.Free()
@@ -771,8 +771,8 @@ func copyPMpv_nodeBytes(slice *sliceHeader) (*C.mpv_node, *cgoAllocMap) {
 
 	mem0 := unsafe.Pointer(C.CBytes(*(*[]byte)(unsafe.Pointer(&sliceHeader{
 		Data: slice.Data,
-		Len:  int(sizeOfMpv_nodeValue) * slice.Len,
-		Cap:  int(sizeOfMpv_nodeValue) * slice.Len,
+		Len:  int(sizeOfNodeValue) * slice.Len,
+		Cap:  int(sizeOfNodeValue) * slice.Len,
 	}))))
 	allocs.Add(mem0)
 

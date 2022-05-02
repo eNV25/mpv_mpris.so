@@ -2,7 +2,7 @@ package internal
 
 /*
 
-#include "client.h"
+#include "mpv.h"
 
 void mpv_mpris_callback(void *);
 
@@ -20,7 +20,7 @@ func mpv_mpris_callback(f func()) {
 	f()
 }
 
-func mpv_set_wakeup_callback(ctx *mpv_handle, f func()) {
+func set_wakeup_callback(ctx *handle, f func()) {
 	C.mpv_mpris_set_wakeup_callback(ctx, func_t(f).cuintptr())
 }
 

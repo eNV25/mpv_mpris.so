@@ -4,128 +4,128 @@
 package internal
 
 /*
-#include "client.h"
+#include "mpv.h"
 #include <stdlib.h>
 #include "cgo_helpers.h"
 */
 import "C"
 
 const (
-	// _MPV_CLIENT_API_VERSION as defined in mpv/client.h:238
-	_MPV_CLIENT_API_VERSION = 65645
-	// _MPV_ENABLE_DEPRECATED as defined in mpv/client.h:247
-	_MPV_ENABLE_DEPRECATED = 1
+	// _CLIENT_API_VERSION as defined in mpv/client.h:238
+	_CLIENT_API_VERSION = 65645
+	// _ENABLE_DEPRECATED as defined in mpv/client.h:247
+	_ENABLE_DEPRECATED = 1
 )
 
-// mpv_error as declared in mpv/client.h:367
-type mpv_error int32
+// error as declared in mpv/client.h:367
+type error int32
 
-// mpv_error enumeration from mpv/client.h:367
+// error enumeration from mpv/client.h:367
 const (
-	_MPV_ERROR_SUCCESS              = iota
-	_MPV_ERROR_EVENT_QUEUE_FULL     = -1
-	_MPV_ERROR_NOMEM                = -2
-	_MPV_ERROR_UNINITIALIZED        = -3
-	_MPV_ERROR_INVALID_PARAMETER    = -4
-	_MPV_ERROR_OPTION_NOT_FOUND     = -5
-	_MPV_ERROR_OPTION_FORMAT        = -6
-	_MPV_ERROR_OPTION_ERROR         = -7
-	_MPV_ERROR_PROPERTY_NOT_FOUND   = -8
-	_MPV_ERROR_PROPERTY_FORMAT      = -9
-	_MPV_ERROR_PROPERTY_UNAVAILABLE = -10
-	_MPV_ERROR_PROPERTY_ERROR       = -11
-	_MPV_ERROR_COMMAND              = -12
-	_MPV_ERROR_LOADING_FAILED       = -13
-	_MPV_ERROR_AO_INIT_FAILED       = -14
-	_MPV_ERROR_VO_INIT_FAILED       = -15
-	_MPV_ERROR_NOTHING_TO_PLAY      = -16
-	_MPV_ERROR_UNKNOWN_FORMAT       = -17
-	_MPV_ERROR_UNSUPPORTED          = -18
-	_MPV_ERROR_NOT_IMPLEMENTED      = -19
-	_MPV_ERROR_GENERIC              = -20
+	_ERROR_SUCCESS              = iota
+	_ERROR_EVENT_QUEUE_FULL     = -1
+	_ERROR_NOMEM                = -2
+	_ERROR_UNINITIALIZED        = -3
+	_ERROR_INVALID_PARAMETER    = -4
+	_ERROR_OPTION_NOT_FOUND     = -5
+	_ERROR_OPTION_FORMAT        = -6
+	_ERROR_OPTION_ERROR         = -7
+	_ERROR_PROPERTY_NOT_FOUND   = -8
+	_ERROR_PROPERTY_FORMAT      = -9
+	_ERROR_PROPERTY_UNAVAILABLE = -10
+	_ERROR_PROPERTY_ERROR       = -11
+	_ERROR_COMMAND              = -12
+	_ERROR_LOADING_FAILED       = -13
+	_ERROR_AO_INIT_FAILED       = -14
+	_ERROR_VO_INIT_FAILED       = -15
+	_ERROR_NOTHING_TO_PLAY      = -16
+	_ERROR_UNKNOWN_FORMAT       = -17
+	_ERROR_UNSUPPORTED          = -18
+	_ERROR_NOT_IMPLEMENTED      = -19
+	_ERROR_GENERIC              = -20
 )
 
-// mpv_format as declared in mpv/client.h:793
-type mpv_format int32
+// format as declared in mpv/client.h:793
+type format int32
 
-// mpv_format enumeration from mpv/client.h:793
+// format enumeration from mpv/client.h:793
 const (
-	_MPV_FORMAT_NONE       = iota
-	_MPV_FORMAT_STRING     = 1
-	_MPV_FORMAT_OSD_STRING = 2
-	_MPV_FORMAT_FLAG       = 3
-	_MPV_FORMAT_INT64      = 4
-	_MPV_FORMAT_DOUBLE     = 5
-	_MPV_FORMAT_NODE       = 6
-	_MPV_FORMAT_NODE_ARRAY = 7
-	_MPV_FORMAT_NODE_MAP   = 8
-	_MPV_FORMAT_BYTE_ARRAY = 9
+	_FORMAT_NONE       = iota
+	_FORMAT_STRING     = 1
+	_FORMAT_OSD_STRING = 2
+	_FORMAT_FLAG       = 3
+	_FORMAT_INT64      = 4
+	_FORMAT_DOUBLE     = 5
+	_FORMAT_NODE       = 6
+	_FORMAT_NODE_ARRAY = 7
+	_FORMAT_NODE_MAP   = 8
+	_FORMAT_BYTE_ARRAY = 9
 )
 
-// mpv_event_id as declared in mpv/client.h:1496
-type mpv_event_id int32
+// event_id as declared in mpv/client.h:1496
+type event_id int32
 
-// mpv_event_id enumeration from mpv/client.h:1496
+// event_id enumeration from mpv/client.h:1496
 const (
-	_MPV_EVENT_NONE                  = iota
-	_MPV_EVENT_SHUTDOWN              = 1
-	_MPV_EVENT_LOG_MESSAGE           = 2
-	_MPV_EVENT_GET_PROPERTY_REPLY    = 3
-	_MPV_EVENT_SET_PROPERTY_REPLY    = 4
-	_MPV_EVENT_COMMAND_REPLY         = 5
-	_MPV_EVENT_START_FILE            = 6
-	_MPV_EVENT_END_FILE              = 7
-	_MPV_EVENT_FILE_LOADED           = 8
-	_MPV_EVENT_TRACKS_CHANGED        = 9
-	_MPV_EVENT_TRACK_SWITCHED        = 10
-	_MPV_EVENT_IDLE                  = 11
-	_MPV_EVENT_PAUSE                 = 12
-	_MPV_EVENT_UNPAUSE               = 13
-	_MPV_EVENT_TICK                  = 14
-	_MPV_EVENT_SCRIPT_INPUT_DISPATCH = 15
-	_MPV_EVENT_CLIENT_MESSAGE        = 16
-	_MPV_EVENT_VIDEO_RECONFIG        = 17
-	_MPV_EVENT_AUDIO_RECONFIG        = 18
-	_MPV_EVENT_METADATA_UPDATE       = 19
-	_MPV_EVENT_SEEK                  = 20
-	_MPV_EVENT_PLAYBACK_RESTART      = 21
-	_MPV_EVENT_PROPERTY_CHANGE       = 22
-	_MPV_EVENT_CHAPTER_CHANGE        = 23
-	_MPV_EVENT_QUEUE_OVERFLOW        = 24
-	_MPV_EVENT_HOOK                  = 25
+	_EVENT_NONE                  = iota
+	_EVENT_SHUTDOWN              = 1
+	_EVENT_LOG_MESSAGE           = 2
+	_EVENT_GET_PROPERTY_REPLY    = 3
+	_EVENT_SET_PROPERTY_REPLY    = 4
+	_EVENT_COMMAND_REPLY         = 5
+	_EVENT_START_FILE            = 6
+	_EVENT_END_FILE              = 7
+	_EVENT_FILE_LOADED           = 8
+	_EVENT_TRACKS_CHANGED        = 9
+	_EVENT_TRACK_SWITCHED        = 10
+	_EVENT_IDLE                  = 11
+	_EVENT_PAUSE                 = 12
+	_EVENT_UNPAUSE               = 13
+	_EVENT_TICK                  = 14
+	_EVENT_SCRIPT_INPUT_DISPATCH = 15
+	_EVENT_CLIENT_MESSAGE        = 16
+	_EVENT_VIDEO_RECONFIG        = 17
+	_EVENT_AUDIO_RECONFIG        = 18
+	_EVENT_METADATA_UPDATE       = 19
+	_EVENT_SEEK                  = 20
+	_EVENT_PLAYBACK_RESTART      = 21
+	_EVENT_PROPERTY_CHANGE       = 22
+	_EVENT_CHAPTER_CHANGE        = 23
+	_EVENT_QUEUE_OVERFLOW        = 24
+	_EVENT_HOOK                  = 25
 )
 
-// mpv_log_level as declared in mpv/client.h:1556
-type mpv_log_level int32
+// log_level as declared in mpv/client.h:1556
+type log_level int32
 
-// mpv_log_level enumeration from mpv/client.h:1556
+// log_level enumeration from mpv/client.h:1556
 const (
-	_MPV_LOG_LEVEL_NONE  = iota
-	_MPV_LOG_LEVEL_FATAL = 10
-	_MPV_LOG_LEVEL_ERROR = 20
-	_MPV_LOG_LEVEL_WARN  = 30
-	_MPV_LOG_LEVEL_INFO  = 40
-	_MPV_LOG_LEVEL_V     = 50
-	_MPV_LOG_LEVEL_DEBUG = 60
-	_MPV_LOG_LEVEL_TRACE = 70
+	_LOG_LEVEL_NONE  = iota
+	_LOG_LEVEL_FATAL = 10
+	_LOG_LEVEL_ERROR = 20
+	_LOG_LEVEL_WARN  = 30
+	_LOG_LEVEL_INFO  = 40
+	_LOG_LEVEL_V     = 50
+	_LOG_LEVEL_DEBUG = 60
+	_LOG_LEVEL_TRACE = 70
 )
 
-// mpv_end_file_reason as declared in mpv/client.h:1618
-type mpv_end_file_reason int32
+// end_file_reason as declared in mpv/client.h:1618
+type end_file_reason int32
 
-// mpv_end_file_reason enumeration from mpv/client.h:1618
+// end_file_reason enumeration from mpv/client.h:1618
 const (
-	_MPV_END_FILE_REASON_EOF      = iota
-	_MPV_END_FILE_REASON_STOP     = 2
-	_MPV_END_FILE_REASON_QUIT     = 3
-	_MPV_END_FILE_REASON_ERROR    = 4
-	_MPV_END_FILE_REASON_REDIRECT = 5
+	_END_FILE_REASON_EOF      = iota
+	_END_FILE_REASON_STOP     = 2
+	_END_FILE_REASON_QUIT     = 3
+	_END_FILE_REASON_ERROR    = 4
+	_END_FILE_REASON_REDIRECT = 5
 )
 
-// mpv_sub_api as declared in mpv/client.h:2051
-type mpv_sub_api int32
+// sub_api as declared in mpv/client.h:2051
+type sub_api int32
 
-// mpv_sub_api enumeration from mpv/client.h:2051
+// sub_api enumeration from mpv/client.h:2051
 const (
-	_MPV_SUB_API_OPENGL_CB = 1
+	_SUB_API_OPENGL_CB = 1
 )
